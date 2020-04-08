@@ -1,3 +1,5 @@
-#### Footer col 2
+#### Validera
 
-Med brödtext i ett stycke som säger något trevligt om just detta block, eller kanske en lista av länkar.
+[HTML5](http://validator.w3.org/check/referer)
+[CSS](http://jigsaw.w3.org/css-validator/check/referer)
+[Unicorn](http://validator.w3.org/unicorn/check?ucn_uri=referer&ucn_task=conformance)
