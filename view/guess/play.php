@@ -9,7 +9,7 @@ namespace Anax\View;
 // Show incoming variables and view helper functions
 //echo showEnvironment(get_defined_vars(), get_defined_functions());
 
-?><h1>Play the game</h1>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +26,7 @@ namespace Anax\View;
         <div class="jumbotron">
             <div class="container">
                 <h1 class="display-4">Guess my number</h1>
+
                 <p class="lead" id="userMsg2">Guess a number between 1 and 100, you have <?= $_SESSION["game"]->tries() ?> attempts left.</p>
                 <p>
             </div>
@@ -37,8 +38,8 @@ namespace Anax\View;
             <input type="submit" name="startGame" value="Make a Guess" class="btn btn-primary" id="startGameBtn">
             <input type="submit" name="resetGame" value="Reset game" class="btn btn-primary">
             <input type="submit" name="cheat" value="Cheat" class="btn btn-primary">
-        </form>
 
+        </form>
         <?php if ($_SESSION["game"]->startGame && $_SESSION["game"]->tries() > 0) : ?>
             <p>Your guess: <?= $result ?> </p>
         <?php elseif ($_SESSION["game"]->tries() == 0) : ?>
@@ -48,7 +49,7 @@ namespace Anax\View;
             <p id="userMsg">No more attempts. Game over!</p>
         <?php endif; ?>
 
-        <?php if ($_SESSION["game"]->startGame && $_SESSION["game"]->guessedNumber == $number) : ?>
+        <?php if ($_SESSION["game"]->startGame && $_SESSION["game"]->guessedNumber == $_SESSION["game"]->number()) : ?>
             <script>
                 document.getElementById("startGameBtn").disabled = true;
             </script>
@@ -60,8 +61,6 @@ namespace Anax\View;
                 document.getElementById("userMsg").textContent = "";
             </script>
         <?php endif; ?>
-
-
         <?php if ($_SESSION["game"]->cheat) : ?>
 
             <p>Current number is: <b><?= $_SESSION["game"]->number() ?> </b></p>

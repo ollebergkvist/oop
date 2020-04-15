@@ -29,6 +29,7 @@ class Guess
      *                    the number from start.
      * @param int $tries  Number of tries a guess has been made,
      *                    default 6.
+     * @param int $result Contains the result message.
      */
 
     public function __construct(int $number = -1, int $tries = 6, int $result = 5)
@@ -93,7 +94,7 @@ class Guess
      * @return string to show the status of the guess made.
      */
 
-    public function makeGuess($number)
+    public function makeGuess()
     {
         // Controls game
         if ($this->resetGame) {
@@ -108,14 +109,14 @@ class Guess
                 if ($this->guessedNumber < 0 || $this->guessedNumber > 100) {
                     // Throws exception
                     throw new guessException();
-                } elseif ($this->guessedNumber == $number) {
+                } elseif ($this->guessedNumber == $this->number) {
                     echo "
                     <script>
                     document.getElementById('startGameBtn').disabled = true
                     </script>
                 ";
                     return "{$this->guessedNumber} is correct";
-                } elseif ($this->guessedNumber < $number) {
+                } elseif ($this->guessedNumber < $this->number) {
                     return "{$this->guessedNumber} is too low";
                 } else {
                     return "{$this->guessedNumber} is too high";
