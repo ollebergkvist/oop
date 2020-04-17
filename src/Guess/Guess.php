@@ -102,42 +102,12 @@ class Guess
 
         // Verify $guessedNumber
         if ($guessedNumber == $this->number) {
-            $res = "{$guessedNumber} is correct";
+            $message = "{$guessedNumber} is correct";
         } elseif ($guessedNumber < $this->number) {
-            $res = "{$guessedNumber} is too low";
+            $message = "{$guessedNumber} is too low";
         } elseif ($guessedNumber > $this->number) {
-            $res = "{$guessedNumber} is too high";
+            $message = "{$guessedNumber} is too high";
         }
-        return $res;
-    }
-
-    /**
-     * Destroy a session, the session must be started.
-     *
-     * @return void
-     */
-
-    public function sessionDestroy()
-    {
-        // Unset all of the session variables.
-        $_SESSION = [];
-
-        // If it's desired to kill the session, also delete the session cookie.
-        // Note: This will destroy the session, and not just the session data!
-        if (ini_get("session.use_cookies")) {
-            $params = session_get_cookie_params();
-            setcookie(
-                session_name(),
-                '',
-                time() - 42000,
-                $params["path"],
-                $params["domain"],
-                $params["secure"],
-                $params["httponly"]
-            );
-        }
-
-        // Finally, destroy the session.
-        session_destroy();
+        return $message;
     }
 }

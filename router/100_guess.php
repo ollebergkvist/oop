@@ -65,7 +65,7 @@ $app->router->get("guess/play", function () use ($app) {
 
     // Adds views
     $app->page->add("guess/play", $data);
-    $app->page->add("guess/debug", $data);
+    // $app->page->add("guess/debug", $data);
 
     // Renders title
     return $app->page->render([
@@ -83,7 +83,7 @@ $app->router->post("guess/play", function () use ($app) {
 
     // Retrieves values from session
     $number = $_SESSION["number"] ?? null;
-    $tries = $_SESSION["number"] ?? null;
+    $tries = $_SESSION["tries"] ?? null;
 
     // Starts game when user clicks button
     if ($startGame) {

@@ -31,20 +31,20 @@ namespace Anax\View;
                 <p>
             </div>
         </div>
-        <form method="post">
+        <form method="post" style="display:inline">
             <div class="form-group">
                 <input type="text" name="guessedNumber" class="form-control" required>
             </div>
             <input type="submit" name="startGame" value="Make a Guess" class="btn btn-primary" id="startGameBtn">
         </form>
-        <form method="post" action="./resetgame">
+        <form method="post" action="./resetgame" style="display:inline">
             <input type="submit" name="resetGame" value="Reset game" class="btn btn-primary">
         </form>
-        <form method="post" action="./cheat">
+        <form method="post" action="./cheat" style="display:inline">
             <input type="submit" name="cheat" value="Cheat" class="btn btn-primary">
         </form>
         <p><?= $errorMsg ?></p>
-        <?php if ($startGame && $tries > 0) : ?>
+        <?php if (!isset($errorMsg) && $startGame && $tries > 0) : ?>
             <p>Your guess: <?= $result ?> </p>
         <?php elseif ($tries == 0) : ?>
             <script>
