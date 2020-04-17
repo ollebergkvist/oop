@@ -14,14 +14,6 @@ class Guess
      *
      * @var int $tries    Number of tries a guess has been made.
      *
-     * @var int $guessedNumber Number user guessed on.
-     *
-     * @var string $resetGame  Variable to reset the game.
-     *
-     * @var string $startGame  Variable to start the game.
-     *
-     * @var string $cheat  Variable to cheat.
-     *
      */
 
     private $number;
@@ -39,8 +31,13 @@ class Guess
 
     public function __construct(int $number = -1, int $tries = 6)
     {
-        $this->random($number);
         $this->tries = $tries;
+
+        if ($number === -1) {
+            $number = rand(1, 100);
+        }
+
+        $this->number = $number;
     }
 
     /**
@@ -100,16 +97,16 @@ class Guess
 
     public function makeGuess(int $guessedNumber)
     {
-        // Decreases $tries with 1
-        $this->tries--;
+        // Decrease $tries with 1
+        --$this->tries;
 
-        // Verifies $guessedNumber
+        // Verify $guessedNumber
         if ($guessedNumber == $this->number) {
-            $res = "correct";
+            $res = "{$guessedNumber} is correct";
         } elseif ($guessedNumber < $this->number) {
-            $res = "is too low";
+            $res = "{$guessedNumber} is too low";
         } elseif ($guessedNumber > $this->number) {
-            $res = "is too high";
+            $res = "{$guessedNumber} is too high";
         }
         return $res;
     }

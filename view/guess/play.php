@@ -33,7 +33,7 @@ namespace Anax\View;
         </div>
         <form method="post">
             <div class="form-group">
-                <input type="number" name="guessedNumber" class="form-control" required>
+                <input type="text" name="guessedNumber" class="form-control" required>
             </div>
             <input type="submit" name="startGame" value="Make a Guess" class="btn btn-primary" id="startGameBtn">
         </form>
@@ -44,7 +44,7 @@ namespace Anax\View;
             <input type="submit" name="cheat" value="Cheat" class="btn btn-primary">
         </form>
         <p><?= $errorMsg ?></p>
-        <?php if (is_null($errorMsg) && is_null($resetGame) && is_null($cheat) && $startGame && $tries > 0) : ?>
+        <?php if ($startGame && $tries > 0) : ?>
             <p>Your guess: <?= $result ?> </p>
         <?php elseif ($tries == 0) : ?>
             <script>
@@ -60,7 +60,6 @@ namespace Anax\View;
         <?php if ($resetGame) : ?>
             <script>
                 document.getElementById("startGameBtn").disabled = false;
-                document.getElementById("userMsg").textContent = "";
             </script>
         <?php endif; ?>
         <?php if ($cheat) : ?>
