@@ -1,18 +1,22 @@
 <?php
 
+/**
+ * Exception class for GuessException.
+ */
+
 namespace Olbe19\Guess;
 
+class GuessException extends \Exception
 /**
- * Exception class for PersonAgeException.
+ * @throws errorMessage when the guessed number is smaller then 0 or bigger then 100.
  *
- * @throws errorMessage when the guessed number is smaller then 0 or bigger then 100
- *
- * @param int $gussedNumber The number the user guessed on
- *
- * @return string $errorMessage as error message
  */
-class GuessException extends Exception
 {
+    /**
+     * Creates error message for the exception.
+     *
+     * @return string $errorMessage as error message.
+     */
     public function errorMessage()
     {
         $errorMessage = "Guess needs to be an integer in the range of 1-100!";

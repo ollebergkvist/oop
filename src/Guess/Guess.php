@@ -9,17 +9,23 @@ namespace Olbe19\Guess;
 class Guess
 {
     /**
+     *
      * @var int $number   The current secret number.
+     *
      * @var int $tries    Number of tries a guess has been made.
+     *
+     * @var int $guessedNumber Number user guessed on.
+     *
+     * @var string $resetGame  Variable to reset the game.
+     *
+     * @var string $startGame  Variable to start the game.
+     *
+     * @var string $cheat  Variable to cheat.
+     *
      */
 
     private $number;
     private $tries;
-    public $guessedNumber;
-    public $resetGame;
-    public $startGame;
-    public $cheat;
-
 
     /**
      * Constructor to initiate the object with current game settings,
@@ -29,14 +35,12 @@ class Guess
      *                    the number from start.
      * @param int $tries  Number of tries a guess has been made,
      *                    default 6.
-     * @param int $result Contains the result message.
      */
 
-    public function __construct(int $number = -1, int $tries = 6, int $result = 5)
+    public function __construct(int $number = -1, int $tries = 6)
     {
         $this->random($number);
         $this->tries = $tries;
-        $this->result = $result;
     }
 
     /**
@@ -45,7 +49,7 @@ class Guess
      * @return void
      */
 
-    public function random(int $number): void
+    public function random(): void
     {
         $this->number = rand(1, 100);
     }
@@ -63,6 +67,8 @@ class Guess
 
     /**
      * Set number of tries left.
+     *
+     * @param int $tries Number of tries.
      *
      * @return int as number of tries made.
      */
@@ -89,43 +95,23 @@ class Guess
      *
      * @param int $number randomized number (1-100).
      *
-     * @throws GuessException when guessed number is out of bounds.
-     *
      * @return string to show the status of the guess made.
      */
 
-    public function makeGuess()
+    public function makeGuess(int $guessedNumber)
     {
-        // Controls game
-        if ($this->resetGame) {
-            // Initializes game
-            $this->setTries(6);
-            session_destroy();
-        } elseif ($this->startGame) {
-            // Verifies guessed number towards generated number
-            // Decreases number of tries
-            --$this->tries;
-            try {
-                if ($this->guessedNumber < 0 || $this->guessedNumber > 100) {
-                    // Throws exception
-                    throw new guessException();
-                } elseif ($this->guessedNumber == $this->number) {
-                    echo "
-                    <script>
-                    document.getElementById('startGameBtn').disabled = true
-                    </script>
-                ";
-                    return "{$this->guessedNumber} is correct";
-                } elseif ($this->guessedNumber < $this->number) {
-                    return "{$this->guessedNumber} is too low";
-                } else {
-                    return "{$this->guessedNumber} is too high";
-                }
-            } catch (guessException $e) {
-                // Displays custom message
-                echo "<pre>" . $e->errorMessage() . "</pre>";
-            }
+        // Decreases $tries with 1
+        $this->tries--;
+
+        // Verifies $guessedNumber
+        if ($guessedNumber == $this->number) {
+            $res = "correct";
+        } elseif ($guessedNumber < $this->number) {
+            $res = "is too low";
+        } elseif ($guessedNumber > $this->number) {
+            $res = "is too high";
         }
+        return $res;
     }
 
     /**
@@ -133,6 +119,7 @@ class Guess
      *
      * @return void
      */
+
     public function sessionDestroy()
     {
         // Unset all of the session variables.

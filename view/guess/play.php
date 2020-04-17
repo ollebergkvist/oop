@@ -22,48 +22,49 @@ namespace Anax\View;
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="margin-top:4em;">
         <div class="jumbotron">
             <div class="container">
                 <h1 class="display-4">Guess my number</h1>
 
-                <p class="lead" id="userMsg2">Guess a number between 1 and 100, you have <?= $_SESSION["game"]->tries() ?> attempts left.</p>
+                <p class="lead" id="userMsg2">Guess a number between 1 and 100, you have <?= $tries ?> attempts left.</p>
                 <p>
             </div>
         </div>
         <form method="post">
             <div class="form-group">
-                <input type="text" name="guessedNumber" class="form-control">
+                <input type="number" name="guessedNumber" class="form-control" required>
             </div>
             <input type="submit" name="startGame" value="Make a Guess" class="btn btn-primary" id="startGameBtn">
-            <input type="submit" name="resetGame" value="Reset game" class="btn btn-primary">
-            <input type="submit" name="cheat" value="Cheat" class="btn btn-primary">
-
         </form>
-        <?php if ($_SESSION["game"]->startGame && $_SESSION["game"]->tries() > 0) : ?>
+        <form method="post" action="./resetgame">
+            <input type="submit" name="resetGame" value="Reset game" class="btn btn-primary">
+        </form>
+        <form method="post" action="./cheat">
+            <input type="submit" name="cheat" value="Cheat" class="btn btn-primary">
+        </form>
+        <p><?= $errorMsg ?></p>
+        <?php if (is_null($errorMsg) && is_null($resetGame) && is_null($cheat) && $startGame && $tries > 0) : ?>
             <p>Your guess: <?= $result ?> </p>
-        <?php elseif ($_SESSION["game"]->tries() == 0) : ?>
+        <?php elseif ($tries == 0) : ?>
             <script>
                 document.getElementById("startGameBtn").disabled = true;
             </script>
             <p id="userMsg">No more attempts. Game over!</p>
         <?php endif; ?>
-
-        <?php if ($_SESSION["game"]->startGame && $_SESSION["game"]->guessedNumber == $_SESSION["game"]->number()) : ?>
+        <?php if ($guessedNumber == $number) : ?>
             <script>
                 document.getElementById("startGameBtn").disabled = true;
             </script>
         <?php endif; ?>
-
         <?php if ($resetGame) : ?>
             <script>
                 document.getElementById("startGameBtn").disabled = false;
                 document.getElementById("userMsg").textContent = "";
             </script>
         <?php endif; ?>
-        <?php if ($_SESSION["game"]->cheat) : ?>
-
-            <p>Current number is: <b><?= $_SESSION["game"]->number() ?> </b></p>
+        <?php if ($cheat) : ?>
+            <p>Current number is: <b><?= $number ?> </b></p>
             <script>
                 document.getElementById("startGameBtn").disabled = false;
                 document.getElementById("userMsg").textContent = "";
