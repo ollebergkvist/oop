@@ -18,4 +18,4 @@ However if a player rolls a dice with the value of one the current round is canc
 
 Good luck!
 
-[Start new game!](dice/init)
+[Start new game!](dice1/init)

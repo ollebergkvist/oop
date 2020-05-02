@@ -11,7 +11,7 @@ class DiceHand
      * @var Dice $dices   Array consisting of dices.
      * @var int  $values  Array consisting of last roll of the dices.
      */
-    private $dices;
+    protected $dices;
     private $values;
 
     /**
@@ -19,14 +19,14 @@ class DiceHand
      *
      * @param int $dices Number of dices to create, defaults to 2.
      */
-    public function __construct(int $dices = 2)
+    public function __construct(int $numberOfDices = 2)
     {
         $this->dices  = [];
         $this->values = [];
 
 
-        for ($i = 0; $i < $dices; $i++) {
-            $this->dices[]  = new Dice(6);
+        for ($i = 0; $i < $numberOfDices; $i++) {
+            $this->dices[] = new DiceHandHistogram();
             $this->values[] = null;
         }
     }
@@ -39,8 +39,10 @@ class DiceHand
     public function roll()
     {
         for ($i = 0; $i < count($this->dices); $i++) {
-            $this->values[$i] = rand(1, 6);
+            $this->dices[$i]->roll();
+            $this->values[$i] = $this->dices[$i]->getLastRoll();
         };
+        return $this->values;
     }
 
     /**
@@ -54,9 +56,9 @@ class DiceHand
     }
 
     /**
-     * Set values of dices.
+     * Get values of dices from last roll.
      *
-     * @return void
+     * @return array with values of the last roll.
      */
     public function setValues($value)
     {

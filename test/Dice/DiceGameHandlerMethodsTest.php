@@ -23,6 +23,9 @@ class DiceGameHandlerMethodsTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * Construct object and verify that the method works as expected.
+     */
     public function testAddRoundScoreMethod()
     {
         $diceHandGameHandler = new DiceGameHandler();
@@ -37,7 +40,9 @@ class DiceGameHandlerMethodsTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
-
+    /**
+     * Construct object and verify that the method works as expected.
+     */
     public function testPlayerSaveRoundScoreMethod()
     {
         $diceHandGameHandler = new DiceGameHandler();
@@ -50,6 +55,9 @@ class DiceGameHandlerMethodsTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * Construct object and verify that the method works as expected.
+     */
     public function testComputerSaveRoundScoreMethod()
     {
         $diceHandGameHandler = new DiceGameHandler();
@@ -62,6 +70,9 @@ class DiceGameHandlerMethodsTest extends TestCase
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * Construct object and verify that the method works as expected.
+     */
     public function testPlayerRollMethod()
     {
         $diceHandGameHandler = new DiceGameHandler();
@@ -82,6 +93,9 @@ class DiceGameHandlerMethodsTest extends TestCase
         }
     }
 
+    /**
+     * Construct object and verify that the method works as expected.
+     */
     public function testComputerRollMethod()
     {
         $diceHandGameHandler = new DiceGameHandler();
@@ -100,5 +114,48 @@ class DiceGameHandlerMethodsTest extends TestCase
                 $this->assertEquals($exp, $res);
             }
         }
+    }
+
+    /**
+     * Construct object and verify that the method works as expected.
+     */
+    public function testContinueOrStop()
+    {
+        $diceHandGameHandler = new DiceGameHandler();
+
+        $diceHandGameHandler->getComputer()->roll();
+
+        $result = $diceHandGameHandler->continueOrStop();
+
+        $this->assertInternalType("string", $result);
+    }
+
+    /**
+     * Construct object and verify that the method works as expected.
+     */
+    public function testGetHistogram()
+    {
+        $diceHandGameHandler = new DiceGameHandler();
+
+        $diceHandGameHandler->getComputer()->roll();
+
+        $result = $diceHandGameHandler->getHistogram();
+
+        $this->assertInternalType("string", $result);
+    }
+
+    /**
+     * Construct object and verify that the method 'saveOrContinue'
+     * returns a string correctly.
+     */
+    public function testSaveOrContinue()
+    {
+        $diceHandGameHandler = new DiceGameHandler();
+
+        for ($i = 0; $i <= 1000; $i++) {
+            $diceHandGameHandler->getComputer()->roll();
+            $result[] = $diceHandGameHandler->continueOrStop();
+        }
+        $this->assertContains("stop", $result);
     }
 }

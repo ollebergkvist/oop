@@ -34,7 +34,7 @@ class Guess
         $this->tries = $tries;
 
         if ($number === -1) {
-            $number = rand(1, 100);
+            $this->random();
         }
 
         $this->number = $number;

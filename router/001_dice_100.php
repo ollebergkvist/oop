@@ -83,8 +83,11 @@ $app->router->post("dice/play", function () use ($app) {
     // Retrieves diceGame object from session
     $diceGame = $app->session->get("game");
 
+    // Anax request object
+    $request = new \Anax\Request\Request();
+
     // Stores value from post form
-    $startGamePlayer = $_POST["startGamePlayer"];
+    $startGamePlayer = $request->getPost("startGamePlayer");
 
     // Calls methods and stores values in session
     $app->session->set("startGamePlayer", $startGamePlayer);

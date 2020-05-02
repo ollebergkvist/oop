@@ -11,7 +11,8 @@ class Dice
      * @var integer $sides   The number of sides of the dice.
      */
 
-    private $sides;
+    protected $sides;
+    private $lastRoll;
 
     /**
      * Constructor to initiate dice with a number of sides.
@@ -31,5 +32,28 @@ class Dice
     public function getSides()
     {
         return $this->sides;
+    }
+
+    /**
+     * roll dice
+     *
+     * @return int with random number between 1 and number of sides on dice.
+     */
+    public function roll()
+    {
+        $rolled = rand(1, $this->sides);
+        $this->lastRoll = $rolled;
+        return $rolled;
+    }
+
+
+    /**
+     * Get the value of the last thrown dice.
+     *
+     * @return array with the thrown dices.
+     */
+    public function getLastRoll()
+    {
+        return $this->lastRoll;
     }
 }

@@ -22,6 +22,7 @@ class DiceGameHandler
     private $roundScore;
     private $playerTotalScore = 0;
     private $computerTotalScore = 0;
+    private $histogram;
 
     /**
      * Constructor to initiate players with a dicehand.
@@ -31,9 +32,10 @@ class DiceGameHandler
     public function __construct()
     {
         $this->player = new DiceHand(2);
-        $this->computer = new DiceHandComputer(2);
+        $this->computer = new Computer(2);
         $this->turn = "Player";
         $this->roundScore = 0;
+        $this->histogram = new Histogram();
     }
 
     /**
@@ -43,7 +45,13 @@ class DiceGameHandler
      */
     public function playerRoll()
     {
+        // Roll dices
         $this->player->roll();
+
+        // Loops thru dices and injects data to histogram
+        foreach ($this->player->getDices() as $dice) {
+            $this->histogram->injectData($dice);
+        }
 
         if ($this->player->verifyDiceValues() == true) {
             $this->turn = "Computer";
@@ -62,8 +70,15 @@ class DiceGameHandler
      */
     public function computerRoll()
     {
+        // Rolls dices
         $this->computer->roll();
 
+        // Loops thru dices and injects data to histogram
+        foreach ($this->computer->getDices() as $dice) {
+            $this->histogram->injectData($dice);
+        }
+
+        // Checks rolled dices, if set contains a 1 or not
         if ($this->computer->verifyDiceValues() == true) {
             $this->turn = "Player";
             $this->resetRoundScore();
@@ -184,5 +199,29 @@ class DiceGameHandler
     public function getComputer()
     {
         return $this->computer;
+    }
+
+    /**
+     * Get histogram
+     *
+     * @return string with histogram
+     */
+    public function getHistogram()
+    {
+        return $this->histogram->getAsText();
+    }
+
+    /**
+     * Decides if the computer will save or continue
+     * @return str "save"
+     */
+    public function continueOrStop()
+    {
+        $computerChoice = $this->computer->computerGameLogic();
+
+        if ($computerChoice == "stop") {
+            return "stop";
+        }
+        return "continue";
     }
 }
