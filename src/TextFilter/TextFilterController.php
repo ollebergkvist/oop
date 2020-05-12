@@ -6,23 +6,16 @@ use Anax\Commons\AppInjectableInterface;
 use Anax\Commons\AppInjectableTrait;
 
 /**
- * A sample controller to show how a controller class can be implemented.
- * The controller will be injected with $app if implementing the interface
- * AppInjectableInterface, like this sample class does.
- * The controller is mounted on a particular route and can then handle all
- * requests for that mount point.
- *
- * @SuppressWarnings(PHPMD.CyclomaticComplexity)
- *
+ * A TextFilterController Class
  */
 class TextFilterController implements AppInjectableInterface
 {
     use AppInjectableTrait;
 
     /**
-     * The initialize method is optional and will always be called before the
-     * target method/action. This is a convienient method where you could
-     * setup internal properties that are commonly used by several methods.
+     * Initialize method
+     * Called before the target method/action
+     * Setups internal properties that are commonly used by several methods
      *
      * @return void
      */
@@ -37,7 +30,7 @@ class TextFilterController implements AppInjectableInterface
 
     /**
      * This method is handler for the route:
-     * GET mountpoint/markdown
+     * GET mountpoint/text
      *
      * @return object
      *
