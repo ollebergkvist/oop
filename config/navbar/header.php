@@ -74,5 +74,15 @@ return [
             "url" => "dice_game_controller",
             "title" => "Tärningsspel 100 (Controller)",
         ],
+        [
+            "text" => "Movie database",
+            "url" => "movie",
+            "title" => "Movie database",
+        ],
+        [
+            "text" => "Text Filter",
+            "url" => "textfilter",
+            "title" => "Text Filter",
+        ],
     ],
 ];
