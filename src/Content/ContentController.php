@@ -4,6 +4,7 @@ namespace Olbe19\Content;
 
 use Anax\Commons\AppInjectableInterface;
 use Anax\Commons\AppInjectableTrait;
+use Olbe19\TextFilter\MyTextFilter;
 
 /**
  * A ContentController Class
@@ -343,6 +344,18 @@ class ContentController implements AppInjectableInterface
             return $this->app->response->redirect("content/error");
         }
 
+        // Creates instance of class
+        $textFilter = new \Olbe19\TextFilter\MyTextFilter();
+
+        // Retrieves filters and stores as comma seperated strings in $filters
+        $filters = $content->filter;
+
+        // Creates array of the values from $filters
+        $filtersArray = explode(",", $filters);
+
+        // Parses data thru text filters
+        $content->data = $textFilter->parse($content->data, $filtersArray);
+
         // // Sets webpage title
         $title = $content->title;
 
@@ -463,6 +476,20 @@ class ContentController implements AppInjectableInterface
                 return $this->app->response->redirect("content/error");
             }
         }
+
+        // Creates instance of class
+        $textFilter = new \Olbe19\TextFilter\MyTextFilter();
+
+        // Retrieves filters and stores as comma seperated strings in $filters
+        $filters = $content->filter;
+
+        // Creates array of the values from $filters
+        $filtersArray = explode(",", $filters);
+
+        // Parses data thru text filters
+        $content->data = $textFilter->parse($content->data, $filtersArray);
+
+
         // Data array
         $data = [
             "title" => $title,
@@ -569,6 +596,12 @@ class ContentController implements AppInjectableInterface
         // Sets extended webpage title
         $titleExtended = " | My Content Database";
 
+        // // Creates instance of TextFilter
+        // $textfilter = new \Olbe19\TextFilter\MyTextFilter();
+
+        // // Calls getFilters method and stores filters in $filters
+        // $filters = $textfilter->getFilters();
+
         // Connects to db
         $this->app->db->connect();
 
@@ -587,6 +620,7 @@ class ContentController implements AppInjectableInterface
             "titleExtended" => $titleExtended,
             "contentId" => $contentId,
             "content" => $content,
+            // "filters" => $filters
         ];
 
         // Includes header in view
@@ -641,6 +675,8 @@ class ContentController implements AppInjectableInterface
             if (!$params["contentPath"]) {
                 $params["contentPath"] = null;
             }
+
+            $params["contentFilter"] = implode(",", getPost(["contentFilter"]));
 
             // SQL statement
             $sql = "UPDATE content SET title=?, path=?, slug=?, data=?, type=?, filter=?, published=? WHERE id = ?;";

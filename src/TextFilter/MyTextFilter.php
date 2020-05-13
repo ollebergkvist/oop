@@ -7,8 +7,6 @@ use \Michelf\Markdown;
 /**
  * Filter and format text content.
  *
- * @SuppressWarnings(PHPMD.UnusedFormalParameter)
- * @SuppressWarnings(PHPMD.UnusedPrivateField)
  */
 class MyTextFilter
 {
@@ -25,7 +23,15 @@ class MyTextFilter
         "escape" => "esc"
     ];
 
-
+    /**
+     * Retrieve filters
+     *
+     * @return array with filters.
+     */
+    public function getFilters()
+    {
+        return $this->filters;
+    }
 
     /**
      * Call each filter on the text and return the processed text.
@@ -38,10 +44,10 @@ class MyTextFilter
     public function parse($text, $filter)
     {
         foreach ($filter as $functionName) {
-            $filteredText = call_user_func_array([$this, $this->filters[$functionName]], [$text]);
+            $text = call_user_func_array([$this, $this->filters[$functionName]], [$text]);
         }
 
-        return $filteredText;
+        return $text;
     }
 
     /**

@@ -25,7 +25,7 @@ class TextFilterController implements AppInjectableInterface
         $this->textfilter = new MyTextFilter();
 
         // Stores text as string
-        $this->text = file_get_contents(__DIR__ . "/doc/bbcode.txt");
+        $this->text = file_get_contents(__DIR__ . "/doc/text.txt");
     }
 
     /**
@@ -35,10 +35,10 @@ class TextFilterController implements AppInjectableInterface
      * @return object
      *
      */
-    public function textActionGet(): object
+    public function indexActionGet(): object
     {
         // Calls parse method and stores return in variable
-        $textFiltered = $this->textfilter->parse($this->text, ["bbcode", "link", "markdown", "nl2br"]);
+        $textFiltered = $this->textfilter->parse($this->text, ["bbcode", "nl2br"]);
 
         // Data array
         $data = [

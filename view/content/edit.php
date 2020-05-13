@@ -6,6 +6,9 @@ namespace Anax\View;
  * Template file to render edit view
  */
 
+$filters = ["bbcode", "link", "markdown", "nl2br"];
+$applyFilters = explode(',', $content->filter);
+
 ?>
 
 <form method="post">
@@ -36,13 +39,18 @@ namespace Anax\View;
 
         <p>
             <label>Type:<br>
-                <input type="text" name="contentType" value="<?= esc($content->type) ?>" />
+                <input type="radio" name="contentType" value="post" required <?php if ($content->type == "post") : ?> checked<?php endif; ?> /> Post<br>
+                <input type="radio" name="contentType" value="page" required <?php if ($content->type == "page") : ?> checked <?php endif; ?> /> Page<br>
         </p>
 
         <p>
-            <label>Filter:<br>
-                <input type="text" name="contentFilter" value="<?= esc($content->filter) ?>" />
+            <label>Filters:<br>
+                <?php foreach ($filters as $filter) : ?>
+                    <input type="checkbox" name="contentFilter" value="<?= $filter ?>" <?= !in_array($filter, $applyFilters) ? "" : "checked" ?>><?= $filter ?>
+                <?php endforeach; ?>
         </p>
+
+
 
         <p>
             <label>Publish:<br>
