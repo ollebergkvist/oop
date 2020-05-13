@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Bootstrap the framework and handle the request and send the response.
  */

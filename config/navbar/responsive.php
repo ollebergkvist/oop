@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Supply the basis for the navbar as an array.
  */
@@ -7,7 +8,7 @@ return [
     "id" => "rm-menu",
     "wrapper" => null,
     "class" => "rm-default rm-mobile",
- 
+
     // Here comes the menu items
     "items" => [
         [
@@ -58,6 +59,36 @@ return [
             "text" => "Anax dev",
             "url" => "dev",
             "title" => "Anax development utilities",
+        ],
+        [
+            "text" => "Guess game",
+            "url" => "guess_game",
+            "title" => "Guess game",
+        ],
+        [
+            "text" => "Tärningsspel 100",
+            "url" => "dice_game",
+            "title" => "Tärningsspel 100",
+        ],
+        [
+            "text" => "Tärningsspel 100 (Controller)",
+            "url" => "dice_game_controller",
+            "title" => "Tärningsspel 100 (Controller)",
+        ],
+        [
+            "text" => "Movie database",
+            "url" => "movie",
+            "title" => "Movie database",
+        ],
+        [
+            "text" => "Text Filter",
+            "url" => "textfilter",
+            "title" => "Text Filter",
+        ],
+        [
+            "text" => "Content",
+            "url" => "content",
+            "title" => "Content",
         ],
     ],
 ];

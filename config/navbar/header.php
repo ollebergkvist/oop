@@ -84,5 +84,10 @@ return [
             "url" => "textfilter",
             "title" => "Text Filter",
         ],
+        [
+            "text" => "Content",
+            "url" => "content",
+            "title" => "Content",
+        ],
     ],
 ];
