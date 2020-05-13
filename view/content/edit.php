@@ -56,18 +56,3 @@ namespace Anax\View;
         </p>
     </fieldset>
 </form>
-
-<!-- <p>
-    <label>Type:<br>
-        <input type="radio" name="contentType" value="post" required <?php if ($content->type == "post") : ?> checked<?php endif; ?> /> Post<br>
-        <input type="radio" name="contentType" value="page" required <?php if ($content->type == "page") : ?> checked <?php endif; ?> /> Page<br>
-
-</p>
-
-<p>
-    <label>Filters:<br>
-
-        <?php foreach ($filters as $filter) : ?>
-            <input type="checkbox" name="contentFilter[]" value="<?= $filter ?>" <?= !in_array($filter, $checkedFilters) ? "" : "checked" ?>><?= $filter ?>
-        <?php endforeach; ?>
-</p> -->
